@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from "./HeaderCartButton.module.css"
 import Icon from "../Cart/CartIcon"
-const HeaderCartButton = () =>{
+// A custom button component to show the cart
+const HeaderCartButton = (props) =>{
 
         return(
-            <button className = {styles.button} >
+            <button className = {styles.button} onClick = {props.openCart}  >
                 <span className = {styles.icon}><Icon/></span>
                 <span>Your Cart</span>
                 <span className = {styles.badge}>3</span>

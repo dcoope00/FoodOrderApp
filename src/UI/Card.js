@@ -1,6 +1,6 @@
 import styles from "./Card.module.css"
 
-
+//this component is a simple reusable wrapper for organizing different components with their own wrapper
 const Card = props =>{
 
     return (

@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./MealsSummary.module.css"
 
-
+// this simple component displays the service provided 
 const MealsSummary = () => {
 
     return (
