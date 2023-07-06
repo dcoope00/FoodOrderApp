@@ -1,43 +1,46 @@
-import React from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import styles from "./AvailableMeals.module.css"
 import Card from "../UI/Card"
 import MealItem from "./MealItem/MealItem"
-const DUMMY_MEALS = [
-    {
-        id: 'm1',
-        name: 'Chocolate Cupcake',
-        description: 'A rich dark chocolate cupcake',
-        price: 4.99,
-    },
-    {
-        id: 'm2',
-        name: 'Glazed Doughnut Holes',
-        description: '12 iced doughnut holes',
-        price: 6.99,
-    },
-    {
-        id: 'm3',
-        name: 'Peanut Butter Cookie',
-        description: 'Peanut butter chocolate swirl cookie',
-        price: 0.99,
-    },
-    {
-        id: 'm4',
-        name: 'Apple Fritter',
-        description: 'Cinnamon apples baked into our cinnamon swirl bread',
-        price: 3.99,
-    },
-];
-//this component renders each available item in a list
+
+//this component renders each available item in a list from a database
+
 const AvailableMeals = () => {
-    const mealsList = DUMMY_MEALS.map(meal => {
+
+    const [meals, setMeals] = useState([])
+    
+
+    useEffect( () => {
+        try {
+            const response =  fetch("https://foodorderapp-c087b-default-rtdb.firebaseio.com/meals.json")
+            .then((response) => response.json())
+            .then((data) =>{
+                const loadedMeals = []
+                for(const key in data){
+                    loadedMeals.push({
+                        id: key,
+                        name: data[key].name,
+                        description: data[key].description,
+                        price: data[key].price
+                    })
+                }
+                setMeals(loadedMeals)
+
+            })
+
+        }catch(error){
+
+        }
+    }, [])
+
+    const mealsList = meals.map(meal => {
         return (
-            <li><MealItem 
-            id = {meal.id}
-            key = {meal.id} 
-            name = {meal.name} 
-            description = {meal.description} 
-            price = {meal.price}></MealItem></li>
+            <li><MealItem
+                id={meal.id}
+                key={meal.id}
+                name={meal.name}
+                description={meal.description}
+                price={meal.price}></MealItem></li>
         )
     })
 
